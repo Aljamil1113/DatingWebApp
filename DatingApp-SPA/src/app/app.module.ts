@@ -6,14 +6,14 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
-
-import { ErrorInterceptorProvider } from './_services/error.interceptor';
-import { AuthService } from './_services/auth.service';
-import { JwtModule } from '@auth0/angular-jwt';
-
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { AuthService } from './_services/auth.service';
+import { JwtModule } from '@auth0/angular-jwt';
+import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -25,8 +25,6 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MessagesComponent } from './messages/messages.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailedComponent } from './members/member-detailed/member-detailed.component';
-import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
-import { MemberListResolver } from './_resolvers/member-list.resolver';
 
 
 export function tokenGetter(){
@@ -49,6 +47,7 @@ export function tokenGetter(){
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      NgxGalleryModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
@@ -58,8 +57,7 @@ export function tokenGetter(){
             allowedDomains: ['localhost:5000'],
             disallowedRoutes: ['localhost:5000/api/auth']
          }
-      }),
-      NgxGalleryModule
+      })
    ],
    providers: [
       AuthService,

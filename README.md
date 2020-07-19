@@ -19,5 +19,5 @@ https://jwt.io/
     https://github.com/auth0/angular2-jwt
 
 
-    NgxGallery
-    https://www.npmjs.com/package/ngx-gallery
+    NgxGallery for Angular 9
+   https://www.npmjs.com/package/@kolkov/ngx-gallery
