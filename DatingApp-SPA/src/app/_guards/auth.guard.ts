@@ -10,15 +10,13 @@ import { AlertifyService } from '../_services/alertify.service';
 export class AuthGuard implements CanActivate {
   constructor(private authSerice: AuthService, private router: Router,
     private alertify: AlertifyService) {}
-
   canActivate(): boolean {
     if(this.authSerice.loggedIn()){
       return true;
     }
     this.alertify.error("You are not allowed!");
     this.router.navigate(['/home']);
-    return false;
-    
+    return false;   
   }
   
 }
