@@ -21,3 +21,5 @@ https://jwt.io/
 
     NgxGallery for Angular 9
    https://www.npmjs.com/package/@kolkov/ngx-gallery
+
+   https://cloudinary.com
