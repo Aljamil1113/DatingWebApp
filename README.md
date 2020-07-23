@@ -23,3 +23,4 @@ https://jwt.io/
    https://www.npmjs.com/package/@kolkov/ngx-gallery
 
    https://cloudinary.com
+   ng2-file-upload @1.4.0
