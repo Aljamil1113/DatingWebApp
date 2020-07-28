@@ -24,3 +24,5 @@ https://jwt.io/
 
    https://cloudinary.com
    ng2-file-upload @1.4.0
+
+   Angular TimeAgoPipe

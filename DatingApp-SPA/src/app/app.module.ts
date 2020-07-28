@@ -31,6 +31,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { TimeAgoExtendsPipe } from './_pipes/TimeAgoExtendsPipe.pipe';
 
 
 
@@ -50,7 +51,8 @@ export function tokenGetter(){
       MemberCardComponent,
       MemberDetailedComponent,
       MemberEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      TimeAgoExtendsPipe
    ],
    imports: [
       BrowserModule,
