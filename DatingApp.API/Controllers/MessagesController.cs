@@ -76,7 +76,8 @@ namespace DatingApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDto messageForCreation)
         {
-            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            var sender = await repo.GetUser(userId);
+            if(sender.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
             messageForCreation.SenderId = userId;
@@ -90,10 +91,11 @@ namespace DatingApp.API.Controllers
 
             repo.Add(message);
 
-            var messageToReturn = mapper.Map<MessageForCreationDto>(message);
-
-            if(await repo.SaveAll())
+            if(await repo.SaveAll()){
+                var messageToReturn = mapper.Map<MessageToReturnDto>(message);
                 return CreatedAtRoute("GetMessage", new{id = message.Id}, messageToReturn);
+            }
+            
 
             throw new Exception("Creating on message failed on save");
         }

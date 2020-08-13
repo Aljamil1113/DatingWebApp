@@ -1,3 +1,4 @@
+import { MessagesResolver } from './_resolvers/messages.resolver';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule } from '@angular/common/http';
@@ -35,6 +36,7 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { TimeAgoExtendsPipe } from './_pipes/TimeAgoExtendsPipe.pipe';
 import { ListsResolver } from './_resolvers/lists.resolver';
+import { MembersMessagesComponent } from './members-messages/members-messages.component';
 
 
 
@@ -56,7 +58,8 @@ export function tokenGetter(){
       MemberDetailedComponent,
       MemberEditComponent,
       PhotoEditorComponent,
-      TimeAgoExtendsPipe
+      TimeAgoExtendsPipe,
+      MembersMessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -88,7 +91,7 @@ export function tokenGetter(){
       MemberListResolver,
       MemberEditResolver,
       PreventUnsavedChanges,
-      ListsResolver
+      ListsResolver, MessagesResolver
    ],
    bootstrap: [
       AppComponent
