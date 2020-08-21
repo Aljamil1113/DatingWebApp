@@ -1,3 +1,5 @@
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
+import { AdminService } from './_services/admin.service';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -10,7 +12,7 @@ import { UserService } from './_services/user.service';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { PaginationModule} from 'ngx-bootstrap';
+import { PaginationModule, ModalModule} from 'ngx-bootstrap';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
@@ -37,9 +39,10 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { TimeAgoExtendsPipe } from './_pipes/TimeAgoExtendsPipe.pipe';
 import { ListsResolver } from './_resolvers/lists.resolver';
 import { MembersMessagesComponent } from './members-messages/members-messages.component';
-
-
-
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 export function tokenGetter(){
    return localStorage.getItem('token');
@@ -59,7 +62,10 @@ export function tokenGetter(){
       MemberEditComponent,
       PhotoEditorComponent,
       TimeAgoExtendsPipe,
-      MembersMessagesComponent
+      MembersMessagesComponent,
+      AdminPanelComponent, HasRoleDirective,
+      UserManagementComponent, PhotoManagementComponent,
+      RolesModalComponent
    ],
    imports: [
       BrowserModule,
@@ -72,6 +78,7 @@ export function tokenGetter(){
       BsDatepickerModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
+      ModalModule.forRoot(),
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,
@@ -91,8 +98,10 @@ export function tokenGetter(){
       MemberListResolver,
       MemberEditResolver,
       PreventUnsavedChanges,
-      ListsResolver, MessagesResolver
+      ListsResolver, MessagesResolver,
+      AdminService
    ],
+   entryComponents: [RolesModalComponent],
    bootstrap: [
       AppComponent
    ]
