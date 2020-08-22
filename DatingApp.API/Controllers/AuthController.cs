@@ -78,6 +78,12 @@ namespace DatingApp.API.Controllers
             //var user = mapper.Map<UserForListDto>(userFromRepo);
 
             var user = await userManager.FindByNameAsync(userForLogIn.Username);
+            
+            if(user == null)
+            {
+                return Unauthorized();
+            }
+
             var result = await signInManager.CheckPasswordSignInAsync(user, userForLogIn.Password, false);
             if(result.Succeeded)
             {

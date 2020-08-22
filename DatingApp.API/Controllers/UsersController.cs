@@ -30,7 +30,7 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var userFromRepo = await repo.GetUser(currentUserId);
+            var userFromRepo = await repo.GetUser(currentUserId, true);
             userParams.UserId = currentUserId;
             if(string.IsNullOrEmpty(userParams.Gender))
             {
@@ -48,7 +48,9 @@ namespace DatingApp.API.Controllers
         [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
-            var user = await repo.GetUser(id);
+            var isCurrentUser = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == id;
+            
+            var user = await repo.GetUser(id, isCurrentUser);
 
             var userToReturn = mapper.Map<UserForDetailedDto>(user);
 
@@ -63,7 +65,7 @@ namespace DatingApp.API.Controllers
                 return Unauthorized();
             }
 
-            var userFromRepo = await repo.GetUser(id);
+            var userFromRepo = await repo.GetUser(id, true);
 
             mapper.Map(userForUpdateDto, userFromRepo);
 
@@ -92,7 +94,7 @@ namespace DatingApp.API.Controllers
             }
                 
 
-            if(await repo.GetUser(recipientId) == null)
+            if(await repo.GetUser(recipientId, false) == null)
             {
                  return NotFound();
             }
