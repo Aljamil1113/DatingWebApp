@@ -74,26 +74,32 @@ namespace DatingApp.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDto messageForCreation)
+        public async Task<IActionResult> CreateMessage(int userId, [FromBody]MessageForCreationDto messageForCreation)
         {
             var sender = await repo.GetUser(userId, false);
             if(sender.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
                 return Unauthorized();
-
+            }
+                
             messageForCreation.SenderId = userId;
 
-            var recipient = await repo.GetUser(messageForCreation.RecipientId, true);
+            var recipient = await repo.GetUser(messageForCreation.RecipientId, false);
 
             if(recipient == null)
-                return BadRequest("Could not find user");
-
+            {
+                  return BadRequest("Could not find user");
+            }
+              
             var message = mapper.Map<Message>(messageForCreation);
 
             repo.Add(message);
 
-            if(await repo.SaveAll()){
+            if(await repo.SaveAll())
+            {
                 var messageToReturn = mapper.Map<MessageToReturnDto>(message);
-                return CreatedAtRoute("GetMessage", new{id = message.Id}, messageToReturn);
+                return CreatedAtRoute("GetMessage", new {id = message.Id}, messageToReturn);
+                //return CreatedAtAction("GetMessage", messageToReturn);
             }
             
 
